@@ -27,6 +27,8 @@ pio device monitor
 
 If `pio run` fails to fetch libraries, check your network/proxy — it needs to reach the PlatformIO registry for `TFT_eSPI`, `lvgl`, and `Adafruit NeoPixel`.
 
+**Deploying from a phone with ArduinoDroid?** See [ARDUINODROID.md](ARDUINODROID.md) — it uses the flattened copy of this firmware in `arduino/ESP32S3VirtualPet/` and walks through the manual TFT_eSPI/LVGL config ArduinoDroid can't automate.
+
 ## What's implemented
 
 - Display + LVGL UI: pet face (color/expression reflects mood), stat bars (food/mood/rest/clean), action buttons.
@@ -44,11 +46,15 @@ If `pio run` fails to fetch libraries, check your network/proxy — it needs to 
 ## Project layout
 
 ```
-platformio.ini       PlatformIO env + TFT_eSPI pin config (via build_flags)
-include/pins.h        Board pin map
-include/lv_conf.h     LVGL configuration
-src/main.cpp          Setup/loop, display+touch+LED init
-src/ft6336.*           FT6336G capacitive touch driver
-src/pet.*               Pet state machine (hardware-independent)
-src/ui.*                 LVGL screen construction + refresh
+platformio.ini            PlatformIO env + TFT_eSPI pin config (via build_flags)
+include/pins.h             Board pin map
+include/lv_conf.h          LVGL configuration
+src/main.cpp               Setup/loop, display+touch+LED init
+src/ft6336.*                FT6336G capacitive touch driver
+src/pet.*                    Pet state machine (hardware-independent)
+src/ui.*                      LVGL screen construction + refresh
+arduino/ESP32S3VirtualPet/  Flat ArduinoDroid/Arduino-IDE-compatible copy of the same firmware
+arduino/TFT_eSPI_User_Setup.h  Paste-in config for TFT_eSPI when not using PlatformIO
+arduino/lv_conf.h              Paste-in LVGL config when not using PlatformIO
+ARDUINODROID.md              Step-by-step phone deployment guide
 ```
